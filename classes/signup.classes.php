@@ -24,12 +24,12 @@ class Signup extends Db {
         return $resultCheck;
     }
 
-    protected function setUser($uname, $email, $password) {
-        $stmt = $this->connect()->prepare('INSERT INTO user (UserName, Email, Password) VALUES (?, ?, ?);');
+    protected function setUser($uname, $email, $password, $Role) {
+        $stmt = $this->connect()->prepare('INSERT INTO user (UserName, Email, Password, Role) VALUES (?, ?, ?, ?);');
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        if(!$stmt->execute(array($uname, $email, $hashedPassword))) 
+        if(!$stmt->execute(array($uname, $email, $hashedPassword, $Role))) 
         {
             $stmt = null;
             header("location: ../index.php?error=stmtfailed");
