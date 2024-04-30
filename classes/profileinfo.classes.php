@@ -3,7 +3,7 @@
 class ProfileInfo extends Db {
 
     protected function getProfileInfo($userId) {
-        $stmt = $this->connect()->prepare('SELECT * FROM profiles WHERE user_id = ?;');
+        $stmt = $this->connect()->prepare('SELECT * FROM profiles WHERE UserID = ?;');
 
         if(!$stmt->execute(array($userId))) 
         {
@@ -38,7 +38,7 @@ class ProfileInfo extends Db {
     }
 
     protected function setProfileInfo($profileAbout, $profileTitle, $profileText, $userId) {
-        $stmt = $this->connect()->prepare('INSERT INTO profiles (profile_about, profile_title, profile_text, user_id) VALUES (?, ?, ?, ?);');
+        $stmt = $this->connect()->prepare('INSERT INTO profiles (profile_about, profile_title, profile_text, UserID) VALUES (?, ?, ?, ?);');
 
         if(!$stmt->execute(array($profileAbout, $profileTitle, $profileText, $userId))) 
         {

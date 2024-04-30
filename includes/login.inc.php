@@ -16,5 +16,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $login->loginUser();
 
     // Going to website
-    header("location: ../signup.php?error=none");
+    header("location: ../dashboard.php");
 }

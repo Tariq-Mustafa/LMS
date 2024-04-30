@@ -83,31 +83,31 @@ class SignupContr extends Signup {
         if($this->emptyInput() == false) 
         {
             // echo "Empty input!";
-            header("location: ../signup.php?error=emptyinput");
+            header("location: ../index.php?error=emptyinput");
             exit();
         }
         if($this->invalidUname() == false) 
         {
             // echo "invalid Username!";
-            header("location: ../signup.php?error=invalidUsername");
+            header("location: ../index.php?error=invalidUsername");
             exit();
         }
         if($this->invalidEmail() == false) 
         {
             // echo "invalid Email!";
-            header("location: ../signup.php?error=invalidEmail");
+            header("location: ../index.php?error=invalidEmail");
             exit();
         }
         if($this->passwordMatch() == false) 
         {
             // echo "password is not Matched!";
-            header("location: ../signup.php?error=passwordMatch");
+            header("location: ../index.php?error=passwordMatch");
             exit();
         }
         if($this->unameOrEmailTaken() == false) 
         {
             // echo "uname Or Email is Taken!";
-            header("location: ../signup.php?error=unameOrEmailTaken");
+            header("location: ../index.php?error=unameOrEmailTaken");
             exit();
         }
 
@@ -116,6 +116,6 @@ class SignupContr extends Signup {
 
     public function fetchUserId($uname) {
         $userId = $this->getUserId($uname);
-        return $userId[0]["user_id"];
+        return $userId[0]["UserID"];
     }
 }

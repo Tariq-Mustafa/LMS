@@ -3,12 +3,12 @@
 class Signup extends Db {
 
     protected function checkUser($uname, $email) {
-        $stmt = $this->connect()->prepare('SELECT user_name FROM users WHERE user_name = ? OR user_email = ?;');
+        $stmt = $this->connect()->prepare('SELECT UserName FROM user WHERE UserName = ? OR Email = ?;');
         
         if(!$stmt->execute(array($uname, $email))) 
         {
             $stmt = null;
-            header("location: ../signup.php?error=stmtfailed");
+            header("location: ../index.php?error=stmtfailed");
             exit();
         }
 
@@ -25,14 +25,14 @@ class Signup extends Db {
     }
 
     protected function setUser($uname, $email, $password) {
-        $stmt = $this->connect()->prepare('INSERT INTO users (user_name, user_email, user_password) VALUES (?, ?, ?);');
+        $stmt = $this->connect()->prepare('INSERT INTO user (UserName, Email, Password) VALUES (?, ?, ?);');
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         if(!$stmt->execute(array($uname, $email, $hashedPassword))) 
         {
             $stmt = null;
-            header("location: ../signup.php?error=stmtfailed");
+            header("location: ../index.php?error=stmtfailed");
             exit();
         }
 
@@ -40,7 +40,7 @@ class Signup extends Db {
     }
 
     protected function getUserId($uname) {
-        $stmt = $this->connect()->prepare('SELECT user_id FROM users WHERE user_name = ?;');
+        $stmt = $this->connect()->prepare('SELECT UserID FROM user WHERE UserName = ?;');
 
         if(!$stmt->execute(array($uname))) 
         {

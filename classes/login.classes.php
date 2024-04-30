@@ -3,54 +3,53 @@
 class Login extends Db {
 
     protected function getUser($uname, $password) {
-        $stmt = $this->connect()->prepare('SELECT user_password FROM users WHERE user_name = ? OR user_email = ?;');
+        $stmt = $this->connect()->prepare('SELECT Password FROM user WHERE UserName = ? OR Email = ?;');
 
         if(!$stmt->execute(array($uname, $password))) 
         {
             $stmt = null;
-            header("location: ../signin.php?error=stmtfailed");
+            header("location: ../index.php?error=stmtfailed");
             exit();
         }
 
         if($stmt->rowCount() == 0) 
         {
             $stmt = null;
-            header("location: ../signin.php?error=usernotfound");
+            header("location: ../index.php?error=usernotfound");
             exit();
         }
 
         $passwordHashed = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $checkPassword = password_verify($password, $passwordHashed[0]["user_password"]);
 
-        if($checkPassword == false) 
+        if(password_verify($hashedPassword, $passwordHashed[0]["Password"])) 
         {
             $stmt = null;
-            header("location: ../signin.php?error=wrongpassword");
+            header("location: ../index.php?error=wrongpassword");
             exit();
         }
         elseif($checkPassword == true) 
         {
-            $stmt = $this->connect()->prepare('SELECT * FROM users WHERE user_name = ? OR user_email = ? AND user_password = ?;');
+            $stmt = $this->connect()->prepare('SELECT * FROM user WHERE UserName = ? OR Email = ? AND Password = ?;');
 
             if(!$stmt->execute(array($uname, $uname, $password))) 
             {
                 $stmt = null;
-                header("location: ../signin.php?error=stmtfaild");
+                header("location: ../index.php?error=stmtfaild");
                 exit();
             }
 
             if($stmt->rowCount() == 0) 
             {
                 $stmt = null;
-                header("location: ../signin.php?error=usernotfound");
+                header("location: ../index.php?error=usernotfound");
                 exit();
             }
 
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             session_start();
-            $_SESSION["userid"] = $user[0]["user_id"];
-            $_SESSION["useruid"] = $user[0]["user_name"];
+            $_SESSION["userid"] = $user[0]["UserID"];
+            $_SESSION["useruid"] = $user[0]["UserName"];
 
             $stmt = null;
         }

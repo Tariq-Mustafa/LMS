@@ -2,17 +2,17 @@
 
 class LoginContr extends Login {
 
-    private $email;
+    private $uname;
     private $password;
 
-    public function __construct($email, $password) {
-        $this->email = $email;
+    public function __construct($uname, $password) {
+        $this->uname = $uname;
         $this->password = $password;
     }
 
     private function emptyInput() {
         $result;
-        if(empty($this->email) || empty($this->password)) 
+        if(empty($this->uname) || empty($this->password)) 
         {
             $result = false;
         }
@@ -27,10 +27,10 @@ class LoginContr extends Login {
         if($this->emptyInput() == false) 
         {
             // echo "Empty input!";
-            header("location: ../signin.php?error=emptyinput");
+            header("location: ../index.php?error=emptyinput");
             exit();
         }
 
-        $this->getUser($this->email, $this->password);
+        $this->getUser($this->uname, $this->password);
     }
 }

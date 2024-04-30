@@ -19,11 +19,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $userId = $signup->fetchUserId($uname);
 
     // Instantiate ProfileInfoContr class
-    include "../classes/profileinfo.classes.php";
-    include "../classes/profileinfo-contr.classes.php";
-    $profileInfo = new ProfileInfoContr($userId, $uname);
-    $profileInfo->defaultProfileInfo();
+   // include "../classes/profileinfo.classes.php";
+   // include "../classes/profileinfo-contr.classes.php";
+   // $profileInfo = new ProfileInfoContr($userId, $uname);
+   // $profileInfo->defaultProfileInfo();
 
     // Going to login page
-    header("location: ../signin.php?error=none");
+    header("location: ../index.php?error=none");
 }
