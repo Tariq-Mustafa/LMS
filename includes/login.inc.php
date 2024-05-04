@@ -8,13 +8,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
     // Instantiate signupContr class
     include "../classes/Db.classes.php";
-    include "../classes/login.classes.php";
-    include "../classes/login-contr.classes.php";
+    include "../classes/Model/login.classes.php";
+    include "../classes/Control/login-contr.classes.php";
     $login = new LoginContr($uname, $password);
 
     // Running error handlers and user login
     $login->loginUser();
-
-    // Going to website
-    header("location: ../dashboard.php");
 }

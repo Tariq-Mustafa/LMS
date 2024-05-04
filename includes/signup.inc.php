@@ -8,22 +8,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $password = htmlspecialchars($_POST["password"], ENT_QUOTES, 'UTF-8');
     $cpassword = htmlspecialchars($_POST["cpassword"], ENT_QUOTES, 'UTF-8');
     $Role = "Admin";
+    $Gender = htmlspecialchars($_POST["Gender"], ENT_QUOTES, 'UTF-8');
 
     // Instantiate SignupContr class
     include "../classes/Db.classes.php";
-    include "../classes/signup.classes.php";
-    include "../classes/signup-contr.classes.php";
-    $signup = new SignupContr($uname, $email, $password, $cpassword, $Role);
+    include "../classes/Model/signup.classes.php";
+    include "../classes/Control/signup-contr.classes.php";
+    $signup = new SignupContr($uname, $email, $password, $cpassword, $Role, $Gender);
 
     // Running error handlers and user signup
     $signup->signupUser();
-    $userId = $signup->fetchUserId($uname);
-
-    // Instantiate ProfileInfoContr class
-   // include "../classes/profileinfo.classes.php";
-   // include "../classes/profileinfo-contr.classes.php";
-   // $profileInfo = new ProfileInfoContr($userId, $uname);
-   // $profileInfo->defaultProfileInfo();
 
     // Going to login page
     header("location: ../index.php?error=none");
