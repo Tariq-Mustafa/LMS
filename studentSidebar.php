@@ -18,7 +18,7 @@
 						<span class="icon">
 							<ion-icon name="person-circle-outline"></ion-icon>
 						</span>
-						<span class="title">Edit Profile</span>
+						<span class="title">Profile</span>
 					</a>
 				</li>
 				<li>
@@ -30,7 +30,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="manageUser.php">
+					<a href="assignments.php">
 						<span class="icon">
                         <ion-icon name="document-text-outline"></ion-icon>
 						</span>

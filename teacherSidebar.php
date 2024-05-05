@@ -3,10 +3,10 @@
 		<div class="navigation">
 			<ul>
 				<li>
-					<a href="facultydashboard.php"><span class="title">Online LMS</span></a>
+					<a href="teacherDashboard.php"><span class="title">Online LMS</span></a>
 				</li>
 				<li>
-					<a href="facultydashboard.php">
+					<a href="teacherDashboard.php">
 						<span class="icon">
 							<ion-icon name="home-outline"></ion-icon>
 						</span>
@@ -30,7 +30,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="manageUser.php">
+					<a href="assignments.php">
 						<span class="icon">
                         <ion-icon name="document-text-outline"></ion-icon>
 						</span>

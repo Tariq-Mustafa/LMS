@@ -67,8 +67,10 @@
                         <h2>View Users</h2>
 						<div class="search">
                     		<label>
-                        		<input type="text" placeholder="Search for a student">
-                        		<ion-icon name="search-outlie"></ion-icon>
+								<form>
+									<input type="text" placeholder="Search for a student">
+									<ion-icon name="search-outlie"></ion-icon>
+								</form>
                     		</label>
                 		</div>
                     </div>

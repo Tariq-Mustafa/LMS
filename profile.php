@@ -1,11 +1,9 @@
 <?php
-session_start();
-include "../LMS-main/classes/Db.classes.php";
-include "../LMS-main/classes/Model/Profile.classes.php";
-include "../LMS-main/classes/View/Profile-view.classes.php";
-include "../LMS-main/classes/Control/Profile-contr.classes.php";
-$profileInfo = new ProfileInfoView();
-
+    session_start();
+    include "classes/Db.classes.php";
+    include "classes/Model/Profile.classes.php";
+    include "classes/View/Profile-view.classes.php";
+    $profileInfo = new ProfileInfoView();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,11 +13,14 @@ $profileInfo = new ProfileInfoView();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="./css/Registeration.css">
-    <title>User Profile</title>
+    <title>Profile</title>
     <style>
         .profile-container {
-            max-width: 600px;
-            margin: 0 auto;
+            width: 600px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             padding: 20px;
             background-color: #f9f9f9;
             border-radius: 10px;
@@ -44,33 +45,34 @@ $profileInfo = new ProfileInfoView();
 
     <div class="container" id="container">
         <div class="profile-container">
-            <h1>User Profile</h1>
-            <div class="profile-info">
-                <label>User Name:</label>
-                <p><?php $profileInfo->fetchUserName($_SESSION["UserID"]);?></p>
+            <h1>Profile page</h1>
+            <div class="profile-info" style="margin-top: 10px;">
+                <label>Welcome <?php $profileInfo->fetchUserName($_SESSION["UserID"]);?></label>
             </div>
             <div class="profile-info">
-                <label>ID:</label>
-                <p><?php $profileInfo->fetchUserId($_SESSION["UserID"]);?></p>
+                <label>ID: <?php $profileInfo->fetchUserId($_SESSION["UserID"]);?></label>
             </div>
             <div class="profile-info">
-                <label>Email Address:</label>
-                <p><?php $profileInfo->fetchEmail($_SESSION["UserID"]);?></p>
+                <label>Email Address: <?php $profileInfo->fetchEmail($_SESSION["UserID"]);?></label>
             </div>
             <div class="profile-info">
-                <label>Password:</label>
-                <p><?php $profileInfo->fetchPassword($_SESSION["UserID"]); ?></p>
+                <form action="includes/profile.inc.php" method="post">
+                    <input type="password" name="oldPassword" placeholder="Old Passwprd" />
+                    <input type="password" name="password" placeholder="New Password" minlength="7" />
+                    <button type="submit" name="submit">Change Password</button>
+                </form>
             </div>
             <div class="profile-info">
-                <label>Gender:</label>
-                <p><?php $profileInfo->fetchGender($_SESSION["UserID"]) ?></p>
+                <label>Gender: <?php $profileInfo->fetchGender($_SESSION["UserID"]) ?></label>
             </div>
             <div class="profile-info">
-                <label>Role:</label>
-                <p><?php $profileInfo->fetchRole($_SESSION["UserID"]) ?></p>
+                <label>Role: <?php $profileInfo->fetchRole($_SESSION["UserID"]) ?></label>
             </div>
             <div class="profile-info">
-                <a href="profilesettings.php" class="button">Edit Profile</a>
+                <a href="profileSettings.php" class="button">Edit Profile</a>
+            </div>
+            <div class="profile-info">
+                <a href="studentDashboard.php" class="button">Go back</a>
             </div>
         </div>
     </div>
