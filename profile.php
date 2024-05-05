@@ -4,6 +4,7 @@
     include "classes/Model/Profile.classes.php";
     include "classes/View/Profile-view.classes.php";
     $profileInfo = new ProfileInfoView();
+    $role = $profileInfo->fetchRole($_SESSION["UserID"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,7 +51,8 @@
                 <label>Welcome <?php $profileInfo->fetchUserName($_SESSION["UserID"]);?></label>
             </div>
             <div class="profile-info">
-                <label>ID: <?php $profileInfo->fetchUserId($_SESSION["UserID"]);?></label>
+                <label>ID: <?php if($role == "Student") $profileInfo->fetchStudentId($_SESSION["UserID"]); else $profileInfo->fetchTeacherId($_SESSION["UserID"]);?>
+                </label>
             </div>
             <div class="profile-info">
                 <label>Email Address: <?php $profileInfo->fetchEmail($_SESSION["UserID"]);?></label>
@@ -66,7 +68,7 @@
                 <label>Gender: <?php $profileInfo->fetchGender($_SESSION["UserID"]) ?></label>
             </div>
             <div class="profile-info">
-                <label>Role: <?php $profileInfo->fetchRole($_SESSION["UserID"]) ?></label>
+                <label>Role: <?php echo $role ?></label>
             </div>
             <div class="profile-info">
                 <a href="profileSettings.php" class="button">Edit Profile</a>
