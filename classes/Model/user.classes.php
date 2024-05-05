@@ -34,20 +34,20 @@ class User extends Db {
         if(!$stmt->execute(array($AdminID))) 
         {
             $stmt = null;
-            header("header: manageUser.php?error=stmtfaild");
+            header("location: ../../manageUser.php?error=stmtfaild");
             exit();
         }
 
         if($stmt->rowCount() == 0) 
         {
             $stmt = null;
-            header("header: manageUser.php?error=profilenotfound");
+            header("location: ../../manageUser.php?error=profilenotfound");
             exit(); 
         }
 
-        $row_count = $stmt->fetchColumn();
+        $rowCount = $stmt->fetchColumn();
 
-        return $row_count;
+        return $rowCount;
     }
 
     protected function getTeachersNum($AdminID) {
@@ -56,32 +56,79 @@ class User extends Db {
         if(!$stmt->execute(array($AdminID))) 
         {
             $stmt = null;
-            header("header: manageUser.php?error=stmtfaild");
+            header("location: ../../manageUser.php?error=stmtfaild");
             exit();
         }
 
         if($stmt->rowCount() == 0) 
         {
             $stmt = null;
-            header("header: manageUser.php?error=profilenotfound");
+            header("location: ../../manageUser.php?error=profilenotfound");
             exit(); 
         }
 
-        $row_count = $stmt->fetchColumn();
+        $rowCount = $stmt->fetchColumn();
 
-        return $row_count;
+        return $rowCount;
     }
 
-    // protected function setNewProfileInfo($profileAbout, $profileTitle, $profileText, $userId) {
-    //     $stmt = $this->connect()->prepare('UPDATE profiles SET profile_about = ?, profile_title = ?, profile_text = ? WHERE user_id = ?;');
+    protected function getStudentInfo($AdminID) {
+        $stmt = $this->connect()->prepare('SELECT * FROM Student join user ON Student.UserID = user.UserID WHERE AdminID = ?;');
 
-    //     if(!$stmt->execute(array($profileAbout, $profileTitle, $profileText, $userId))) 
-    //     {
-    //         $stmt = null;
-    //         header("header: profile.php?error=stmtfaild");
-    //         exit(); 
-    //     }
+        if(!$stmt->execute(array($AdminID))) 
+        {
+            $stmt = null;
+            header("location: ../../manageUser.php?error=stmtfaild");
+            exit();
+        }
 
-    //     $stmt = null;
-    // }
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $rows;
+    }
+
+    protected function getTeacherInfo($AdminID) {
+        $stmt = $this->connect()->prepare('SELECT * FROM Faculty_Member join user ON Faculty_Member.UserID = user.UserID WHERE AdminID = ?;');
+
+        if(!$stmt->execute(array($AdminID))) 
+        {
+            $stmt = null;
+            header("location: ../../manageUser.php?error=stmtfaild");
+            exit();
+        }
+
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $rows;
+    }
+
+    protected function deleteStudent($UserID) {
+        try {
+            $stmt = $this->connect()->prepare('DELETE FROM Student WHERE UserID = ?;');
+            $stmt->execute(array($UserID));
+            
+            $stmt = $this->connect()->prepare('DELETE FROM user WHERE UserID = ?;');
+            $stmt->execute(array($UserID));
+
+        } catch (PDOException $e) {
+            header("Location: ../../manageUser.php?error=stmtfailed");
+            exit();
+        }
+
+    }
+
+    protected function deleteTeacher($UserID) {
+        try {
+            $stmt = $this->connect()->prepare('DELETE FROM Faculty_Member WHERE UserID = ?;');
+            $stmt->execute(array($UserID));
+            
+            $stmt = $this->connect()->prepare('DELETE FROM user WHERE UserID = ?;');
+            $stmt->execute(array($UserID));
+
+        } catch (PDOException $e) {
+            header("Location: ../../manageUser.php?error=stmtfailed");
+            exit();
+        }
+
+    }
 }

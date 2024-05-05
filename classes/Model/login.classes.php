@@ -76,12 +76,16 @@ class Login extends Db {
 
             if($Role == "Student")
             {
-
+                session_start();
+                $_SESSION["UserID"] = $user[0]["UserID"];
+                header("Location: ../studentDashboard.php");
             }
 
             if($Role == "Teacher")
             {
-
+                session_start();
+                $_SESSION["UserID"] = $user[0]["UserID"];
+                header("Location: ../teacherDashboard.php");
             }
 
             $stmt = null;

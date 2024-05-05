@@ -65,10 +65,10 @@
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>View Users</h2>
-						<div class="search" style="margin: 0px 0%;">
+						<div class="search">
                     		<label>
                         		<input type="text" placeholder="Search for a student">
-                        		<ion-icon name="search-outline"></ion-icon>
+                        		<ion-icon name="search-outlie"></ion-icon>
                     		</label>
                 		</div>
                     </div>
@@ -76,30 +76,20 @@
                     <table>
                         <thead>
                             <tr>
-                                <td>Name</td>
-                                <td>Price</td>
-                                <td>Payment</td>
-                                <td>Status</td>
+                                <td>Main ID</td>
+                                <td>StudentID / Department</td>
+                                <td>Full Name</td>
+                                <td>Delete</td>
                             </tr>
                         </thead>
 
-						<?php 
-    						if($UsersNo->num_rows > 0)
-    						{
-        						while($row= $UsersNo->fetch_assoc())
-        						{
-            						echo
-                						"<tr>
-                    						<td>".$row['UserID']."</td>
-                    						<td>".$row['UserName']."</td>
-                    						<td>
-                        						<a href='".url('/products/delete/'.$row['UserID'])."' class='btn btn-danger'>Delete</a>
-                    						</td>
-                						</tr>";
-        						}
-    						}
-						?>
+						<tbody>
 
+							<?php
+								$users->fetchAllUser($_SESSION["AdminID"]);
+							?>
+
+						</tbody>
                     </table>
                 </div>
 				<div class="recentCustomers">
