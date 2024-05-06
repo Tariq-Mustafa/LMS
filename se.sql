@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2024 at 03:22 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.2.0
+-- Generation Time: May 04, 2024 at 10:38 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,8 +37,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`AdminID`, `UserID`) VALUES
-(10, 19),
-(11, 20);
+(10, 19);
 
 -- --------------------------------------------------------
 
@@ -79,8 +78,7 @@ CREATE TABLE `course` (
   `Description` text NOT NULL,
   `InstructorID` int(11) NOT NULL,
   `Start_Date` datetime NOT NULL,
-  `End_Date` datetime NOT NULL,
-  `Image` varchar(500) NOT NULL
+  `End_Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -119,14 +117,6 @@ CREATE TABLE `faculty_member` (
   `AdminID` int(11) NOT NULL,
   `Department` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `faculty_member`
---
-
-INSERT INTO `faculty_member` (`FacultyID`, `UserID`, `AdminID`, `Department`) VALUES
-(1, 21, 11, 'CS'),
-(2, 22, 11, 'AI');
 
 -- --------------------------------------------------------
 
@@ -197,13 +187,6 @@ CREATE TABLE `student` (
   `AdminID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `student`
---
-
-INSERT INTO `student` (`StudentID`, `UserID`, `AdminID`) VALUES
-(20220205, 23, 11);
-
 -- --------------------------------------------------------
 
 --
@@ -224,11 +207,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `UserName`, `Email`, `Password`, `Role`, `Gender`) VALUES
-(19, 'test', 'test@gmail.com', '$2y$10$FHtKq.I1EvLJF38gywsXCutnoPada81XCts7uwGI5XlWVT5062uKS', 'Admin', 'Male'),
-(20, 'anas', 'anas@gmail.com', '$2y$10$.PVePFt9xTKugwVQHLyzpO2sAxMlc0bo8Tfmvs6JwcB.UTpU33PfW', 'Admin', 'Male'),
-(21, 'amr', 'amr@gmail.com', '$2y$10$upObS3yEFOtZjiS8MDu01OHr9ih/Deu2we78Pfb1bpELe0IJnVSx.', 'Teacher', 'Male'),
-(22, 'marwa', 'marwa@gmail.com', '$2y$10$YToDmyovb09iwi3NjAq/3e0gdsr4r0WWobntctU7Z9bwfnkF49j12', 'Teacher', 'Female'),
-(23, 'tom', 'tom@gmail.com', '$2y$10$xNxpizOZhrQXPgFT3a7nlevn5jtnolDRAfO7lNJW5tbbWL2SBrEb6', 'Student', 'Male');
+(19, 'test', 'test@gmail.com', '$2y$10$FHtKq.I1EvLJF38gywsXCutnoPada81XCts7uwGI5XlWVT5062uKS', 'Admin', 'Male');
 
 --
 -- Indexes for dumped tables
@@ -261,7 +240,6 @@ ALTER TABLE `certificate`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`CourseID`),
-  ADD UNIQUE KEY `CourseName` (`CourseName`),
   ADD KEY `InstructorID` (`InstructorID`);
 
 --
@@ -343,7 +321,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `assignment`
@@ -379,7 +357,7 @@ ALTER TABLE `evaluation_questions`
 -- AUTO_INCREMENT for table `faculty_member`
 --
 ALTER TABLE `faculty_member`
-  MODIFY `FacultyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `FacultyID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -409,13 +387,13 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20220206;
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20220205;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
