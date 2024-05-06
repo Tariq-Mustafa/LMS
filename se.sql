@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 04, 2024 at 10:38 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: May 07, 2024 at 02:08 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,7 +37,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`AdminID`, `UserID`) VALUES
-(10, 19);
+(10, 19),
+(11, 20);
 
 -- --------------------------------------------------------
 
@@ -78,8 +79,17 @@ CREATE TABLE `course` (
   `Description` text NOT NULL,
   `InstructorID` int(11) NOT NULL,
   `Start_Date` datetime NOT NULL,
-  `End_Date` datetime NOT NULL
+  `End_Date` datetime NOT NULL,
+  `Image` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`CourseID`, `CourseName`, `Description`, `InstructorID`, `Start_Date`, `End_Date`, `Image`) VALUES
+(17, 'Artificial intelligence', 'Artificial intelligence (AI) makes it possible for machines to learn from experience, adjust to new inputs and perform human-like tasks. Most AI examples that you hear about today â€“ from chess-playing computers to self-driving cars â€“ rely heavily on deep learning and natural language processing.', 1, '2024-05-07 00:00:00', '2024-06-14 00:00:00', './images/01-04-30Types_of_Artificial_Intelligence.avif'),
+(18, 'Computer network', 'A computer network is a set of computers sharing resources located on or provided by network nodes. Computers use common communication protocols over digital interconnections to communicate with each other. These interconnections are made up of telecommunication network technologies based on physically wired, optical, and wireless radio-frequency methods that may be arranged in a variety of network topologies.', 3, '2024-05-14 00:00:00', '2024-06-19 00:00:00', './images/01-04-58network.jpg');
 
 -- --------------------------------------------------------
 
@@ -117,6 +127,16 @@ CREATE TABLE `faculty_member` (
   `AdminID` int(11) NOT NULL,
   `Department` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `faculty_member`
+--
+
+INSERT INTO `faculty_member` (`FacultyID`, `UserID`, `AdminID`, `Department`) VALUES
+(1, 21, 11, 'CS'),
+(3, 24, 11, 'IT'),
+(5, 31, 11, 'IT'),
+(6, 32, 11, 'AI');
 
 -- --------------------------------------------------------
 
@@ -187,6 +207,28 @@ CREATE TABLE `student` (
   `AdminID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `student`
+--
+
+INSERT INTO `student` (`StudentID`, `UserID`, `AdminID`) VALUES
+(20220206, 25, 11),
+(20220207, 26, 11),
+(20220208, 27, 11),
+(20220209, 28, 11),
+(20220210, 29, 11);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_course`
+--
+
+CREATE TABLE `student_course` (
+  `StudentID` int(11) NOT NULL,
+  `CourseID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -207,7 +249,17 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`UserID`, `UserName`, `Email`, `Password`, `Role`, `Gender`) VALUES
-(19, 'test', 'test@gmail.com', '$2y$10$FHtKq.I1EvLJF38gywsXCutnoPada81XCts7uwGI5XlWVT5062uKS', 'Admin', 'Male');
+(19, 'test', 'test@gmail.com', '$2y$10$FHtKq.I1EvLJF38gywsXCutnoPada81XCts7uwGI5XlWVT5062uKS', 'Admin', 'Male'),
+(20, 'anas', 'anas@gmail.com', '$2y$10$.PVePFt9xTKugwVQHLyzpO2sAxMlc0bo8Tfmvs6JwcB.UTpU33PfW', 'Admin', 'Male'),
+(21, 'amr', 'amr@gmail.com', '$2y$10$upObS3yEFOtZjiS8MDu01OHr9ih/Deu2we78Pfb1bpELe0IJnVSx.', 'Teacher', 'Male'),
+(24, 'roida', 'roida@gmail.com', '$2y$10$bQLi0UsB5SA6Ml2NG8l4C.N8YrU2o/qcS5J1q0BhNb70i0JDmHZre', 'Teacher', 'Female'),
+(25, 'tom', 'tom@gmail.com', '$2y$10$Ivf3svS11vMIdygmkqip/eP5pZRXXp0K6Rbf6DuUycuyi4Dx6Qgku', 'Student', 'Male'),
+(26, 'emma', 'emma@gmil.com', '$2y$10$BhEhmkdUONix.FhMcpxRAu7P5/I1qfcYArbJxTJ09y8nKp7G7daNC', 'Student', 'Female'),
+(27, 'roy', 'roy@gmail.com', '$2y$10$6ry7NRC9Rs3RnkMwRM70z.i3/8BU1Y6m6AFrz2ayqFoqFTqaYTJre', 'Student', 'Male'),
+(28, 'Nora', 'Nora@gmail.com', '$2y$10$NedPIcNRr87k/Lq0ZW4U0O/HINsImcAPkZkgmlg.CSvR9ovO6bgRu', 'Student', 'Female'),
+(29, 'max', 'max@gmail.com', '$2y$10$pM601DwJ2DYcHLq2KjDAMu/00AlinHjONNAYTGrSgf8s2odOeJOYu', 'Student', 'Male'),
+(31, 'mohamed', 'mohamed@gmail.com', '$2y$10$h7juGI.CtxqhSOIQiYRJAuMkINEegiI2cLxiT74oBeWEJOXZoxkvy', 'Teacher', 'Male'),
+(32, 'ahmed', 'ahmed@gmail.com', '$2y$10$CxTNDif4b418s8MRii5wneRq9z3hjfbTis5TzqYi4TN.5kN71Whi.', 'Teacher', 'Male');
 
 --
 -- Indexes for dumped tables
@@ -240,6 +292,7 @@ ALTER TABLE `certificate`
 --
 ALTER TABLE `course`
   ADD PRIMARY KEY (`CourseID`),
+  ADD UNIQUE KEY `CourseName` (`CourseName`),
   ADD KEY `InstructorID` (`InstructorID`);
 
 --
@@ -308,6 +361,13 @@ ALTER TABLE `student`
   ADD KEY `AdminID` (`AdminID`);
 
 --
+-- Indexes for table `student_course`
+--
+ALTER TABLE `student_course`
+  ADD KEY `StudentID` (`StudentID`),
+  ADD KEY `CourseID` (`CourseID`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -321,7 +381,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `assignment`
@@ -339,7 +399,7 @@ ALTER TABLE `certificate`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
@@ -357,7 +417,7 @@ ALTER TABLE `evaluation_questions`
 -- AUTO_INCREMENT for table `faculty_member`
 --
 ALTER TABLE `faculty_member`
-  MODIFY `FacultyID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `FacultyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -387,13 +447,13 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20220205;
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20220211;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
@@ -480,6 +540,13 @@ ALTER TABLE `rating`
 ALTER TABLE `student`
   ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`UserID`),
   ADD CONSTRAINT `student_ibfk_2` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`);
+
+--
+-- Constraints for table `student_course`
+--
+ALTER TABLE `student_course`
+  ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`),
+  ADD CONSTRAINT `student_course_ibfk_2` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
