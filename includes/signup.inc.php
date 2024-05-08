@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $password = htmlspecialchars($_POST["password"], ENT_QUOTES, 'UTF-8');
     $cpassword = htmlspecialchars($_POST["cpassword"], ENT_QUOTES, 'UTF-8');
     $Role = "Admin";
-    $Gender = htmlspecialchars($_POST["Gender"], ENT_QUOTES, 'UTF-8');
+    $Gender = "NULL";
 
     // Instantiate SignupContr class
     include "../classes/Db.classes.php";
@@ -17,7 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $signup = new SignupContr($uname, $email, $password, $cpassword, $Role, $Gender);
 
     // Running error handlers and user signup
-    $signup->signupUser();
+    $signup->signupUser("index");
 
     // Going to login page
     header("location: ../index.php?error=none");

@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     $signup = new SignupContr($uname, $email, $password, $cpassword, $Role, $Gender);
 
     // Running error handlers and user signup
-    $signup->signupUser();
+    $signup->signupUser("manageUser");
     $userId = $signup->fetchUserId($uname);
     
     // Instantiate UserContr class
