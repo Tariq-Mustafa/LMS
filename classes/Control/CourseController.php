@@ -63,6 +63,24 @@ class CourseController extends Db
                 return false;
             }
         }
+        public function getNumberOfStudents(int $courseId)
+        {
+            if ($this->openConnection()) {
+                $query = "SELECT COUNT(*) as studentCount FROM student_course WHERE CourseID = '$courseId'";
+                $result = $this->select($query);
+        
+                if (is_array($result) && isset($result[0]['studentCount'])) {
+                    return $result[0]['studentCount'];
+                } else {
+                    return 0;
+                }
+            } else {
+                echo "Error in Database Connection";
+                return false;
+            }
+        }
+        
+        
 }
 
 ?>
