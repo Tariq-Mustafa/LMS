@@ -10,7 +10,7 @@ class SignupContr extends Signup {
     private $Gender;
 
     public function __construct($uname, $email, $password, $cpassword, $Role, $Gender) {
-        $this->uname = $uname;
+        $this->uname = trim($uname);
         $this->email = $email;
         $this->password = $password;
         $this->cpassword = $cpassword;
@@ -33,7 +33,7 @@ class SignupContr extends Signup {
 
     private function invalidUname() {
         $result;
-        if(!preg_match("/^[a-zA-Z0-9]*$/", $this->uname)) 
+        if(strlen($this->uname) < 3 || !preg_match("/^[a-zA-Z0-9\s]*$/", $this->uname)) 
         {
             $result = false;
         }
@@ -83,39 +83,34 @@ class SignupContr extends Signup {
         return $result;
     }
 
-    public function signupUser() {
+    public function signupUser($targetPage) {
+        $errorMessages = array(
+            "emptyinput" => "Empty input!",
+            "invalidUsername" => "Invalid Username!",
+            "invalidEmail" => "Invalid Email!",
+            "passwordMatch" => "Passwords do not match!",
+            "unameOrEmailTaken" => "Username or Email is already taken!"
+        );
+        $errorCode = "none";
+    
         if($this->emptyInput() == false) 
-        {
-            // echo "Empty input!";
-            header("location: ../index.php?error=emptyinput");
-            exit();
-        }
+            $errorCode = "emptyinput";
         if($this->invalidUname() == false) 
-        {
-            // echo "invalid Username!";
-            header("location: ../index.php?error=invalidUsername");
-            exit();
-        }
+            $errorCode = "invalidUsername";
         if($this->invalidEmail() == false) 
-        {
-            // echo "invalid Email!";
-            header("location: ../index.php?error=invalidEmail");
-            exit();
-        }
+            $errorCode = "invalidEmail";
         if($this->passwordMatch() == false) 
-        {
-            // echo "password is not Matched!";
-            header("location: ../index.php?error=passwordMatch");
-            exit();
-        }
+            $errorCode = "passwordMatch";
         if($this->unameAndEmailTaken() == false) 
-        {
-            // echo "uname Or Email is Taken!";
-            header("location: ../index.php?error=unameOrEmailTaken");
+            $errorCode = "unameOrEmailTaken";
+    
+        if($errorCode == "none")
+            $this->setUser($this->uname, $this->email, $this->password, $this->Role, $this->Gender);
+        elseif(isset($errorMessages[$errorCode])) {
+            $errorMessage = $errorMessages[$errorCode];
+            header("location: ../$targetPage.php?error=$errorCode&message=$errorMessage");
             exit();
         }
-
-        $this->setUser($this->uname, $this->email, $this->password, $this->Role, $this->Gender);
     }
 
     public function fetchUserId($uname) {
