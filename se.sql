@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2024 at 02:08 AM
+-- Generation Time: May 08, 2024 at 01:09 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -89,7 +89,8 @@ CREATE TABLE `course` (
 
 INSERT INTO `course` (`CourseID`, `CourseName`, `Description`, `InstructorID`, `Start_Date`, `End_Date`, `Image`) VALUES
 (17, 'Artificial intelligence', 'Artificial intelligence (AI) makes it possible for machines to learn from experience, adjust to new inputs and perform human-like tasks. Most AI examples that you hear about today â€“ from chess-playing computers to self-driving cars â€“ rely heavily on deep learning and natural language processing.', 1, '2024-05-07 00:00:00', '2024-06-14 00:00:00', './images/01-04-30Types_of_Artificial_Intelligence.avif'),
-(18, 'Computer network', 'A computer network is a set of computers sharing resources located on or provided by network nodes. Computers use common communication protocols over digital interconnections to communicate with each other. These interconnections are made up of telecommunication network technologies based on physically wired, optical, and wireless radio-frequency methods that may be arranged in a variety of network topologies.', 3, '2024-05-14 00:00:00', '2024-06-19 00:00:00', './images/01-04-58network.jpg');
+(18, 'Computer network', 'A computer network is a set of computers sharing resources located on or provided by network nodes. Computers use common communication protocols over digital interconnections to communicate with each other. These interconnections are made up of telecommunication network technologies based on physically wired, optical, and wireless radio-frequency methods that may be arranged in a variety of network topologies.', 3, '2024-05-14 00:00:00', '2024-06-19 00:00:00', './images/01-04-58network.jpg'),
+(20, 'Physics', 'physics, science that deals with the structure of matter and the interactions between the fundamental constituents of the observable universe. In the broadest sense, physics (from the Greek physikos) is concerned with all aspects of nature on both the macroscopic and submicroscopic levels.', 5, '2024-05-24 00:00:00', '2024-06-05 00:00:00', './images/12-34-18physics_icon.jpg');
 
 -- --------------------------------------------------------
 
@@ -229,6 +230,16 @@ CREATE TABLE `student_course` (
   `CourseID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+--
+-- Dumping data for table `student_course`
+--
+
+INSERT INTO `student_course` (`StudentID`, `CourseID`) VALUES
+(20220206, 17),
+(20220206, 18),
+(20220208, 20),
+(20220209, 17);
+
 -- --------------------------------------------------------
 
 --
@@ -364,7 +375,7 @@ ALTER TABLE `student`
 -- Indexes for table `student_course`
 --
 ALTER TABLE `student_course`
-  ADD KEY `StudentID` (`StudentID`),
+  ADD UNIQUE KEY `StudentID` (`StudentID`,`CourseID`),
   ADD KEY `CourseID` (`CourseID`);
 
 --
@@ -399,7 +410,7 @@ ALTER TABLE `certificate`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
