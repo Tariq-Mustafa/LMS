@@ -41,32 +41,31 @@ if (isset($_POST['CourseName']) && isset($_POST['Start_Date']) && isset($_POST['
 }
 $delMsg = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])) {
-  if (!empty($_POST["CourseName"])) {
-    $courseDel = new Course;
-    $courseDel->setCourseName($_POST['CourseName']);
-    if ($courseController->deleteCourse($courseDel)) {
-      $delMsg = "Deleted Successfully";
-      $courseController->closeConnection();
-    } else {
-      $delMsg = "Error occurred during course deletion.";
+    if (!empty($_POST["CourseName"])) {
+        $courseDel = new Course;
+        $courseDel->setCourseName($_POST['CourseName']);
+        if ($courseController->deleteCourse($courseDel)) {
+            $delMsg = "Deleted Successfully";
+            $courseController->closeConnection();
+        } else {
+            $delMsg = "Error occurred during course deletion.";
+        }
     }
-  }
 }
-$errMsg2="";
-if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
-{
-    $student=new Student;
+$errMsg2 = "";
+if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
+    $student = new Student;
     $course2 = new Course;
     $student->setStudentID($_POST['StudentID']);
     $course2->setCourseId($_POST['CourseID']);
-    if ($studentController->addStudentToCourse($student,$course2)) {
+    if ($studentController->addStudentToCourse($student, $course2)) {
         $studentController->closeConnection();
         $errMsg2 = "Added Successfully";
     } else {
         $errMsg2 = "some thing went wrong try again";
     }
 }
-    
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,12 +129,14 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
             color: white;
             border-radius: 5px;
         }
+
         .alert_del {
-  padding: 20px;
-  background-color: #00e600;
-  color: white;
-  border-radius: 5px;
-}
+            padding: 20px;
+            background-color: #00e600;
+            color: white;
+            border-radius: 5px;
+        }
+
         .closebtn {
             margin-left: 15px;
             color: white;
@@ -180,18 +181,18 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
             </div>
             <br>
             <?php
-      if ($delMsg === "Deleted Successfully") { ?>
-        <div class="alert_ok">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          <strong>OK!</strong> <?php echo $delMsg ?>
-        </div>
-      <?php } else if ($delMsg != "") { ?>
-        <div class="alert_del">
-          <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-          <strong>Try Again!</strong> <?php echo $delMsg ?>
-        </div><?php
-            }
-              ?>
+            if ($delMsg === "Deleted Successfully") { ?>
+                <div class="alert_ok">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>OK!</strong> <?php echo $delMsg ?>
+                </div>
+            <?php } else if ($delMsg != "") { ?>
+                <div class="alert_del">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Try Again!</strong> <?php echo $delMsg ?>
+                </div><?php
+                    }
+                        ?>
 
             <table>
                 <?php
@@ -205,7 +206,7 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
                         <tr>
                             <td>Name</td>
                             <td>Instructor Name</td>
-                            <td>Students number</td>
+                            <td>Number of students</td>
                             <td>Delete</td>
                         </tr>
                     </thead>
@@ -215,7 +216,16 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
                             <tr>
                                 <td><?php echo $course["CourseName"] ?></td>
                                 <td><?php echo $course["UserName"] ?></td>
-                                <td>Students number</td>
+                                <td>
+                                    <?php
+                                    
+                                    $numberOfStudents = $courseController->getNumberOfStudents($course['CourseID']);
+                                    if ($numberOfStudents !== false) {
+                                        echo $numberOfStudents;
+                                    } else {
+                                        echo "Error retrieving number of students.";
+                                    } ?>
+                                </td>
                                 <td>
                                     <form method="post" action="manageCourse.php">
                                         <input type="hidden" name="CourseName" value="<?php echo $course["CourseName"]; ?>">
@@ -305,8 +315,8 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
             }
             ?>
             <form action="manageCourse.php" method="post">
-            <div class="form-group">
-                <?php echo $errMsg2 ?>
+                <div class="form-group">
+                    <?php echo $errMsg2 ?>
                     <label for="teacher">Student:</label>
                     <select class="form-control" name="StudentID" id="StudentID" onchange="toggleDepartmentField()">
                         <?php

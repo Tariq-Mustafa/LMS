@@ -20,16 +20,16 @@ $courses = $courseController->getCourses();
     <link rel="stylesheet" type="text/css" href="css/Dashboard.css">
     <title>Dashboard</title>
     <style>
-img {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 200px;
-}
-img:hover {
-  border: 1px solid #777;
-}
+        img {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            width: 200px;
+        }
 
+        img:hover {
+            border: 1px solid #777;
+        }
     </style>
 
 </head>
@@ -75,14 +75,23 @@ include_once "cards.php"
                 <?php
                         $totalCourses = count($courses);
                         $endIndex = max($totalCourses - 5, 0);
-                        for ($i = $totalCourses-1; $i >= $endIndex; $i--) {
+                        for ($i = $totalCourses - 1; $i >= $endIndex; $i--) {
                             $course = $courses[$i]; ?>
                     <tbody>
                         <tr>
                             <td><img src="<?php echo $course["Image"] ?>" alt="Course Image"></td>
                             <td><?php echo $course["CourseName"] ?></td>
                             <td><?php echo $course["UserName"] ?></td>
-                            <td>Number of students</td>
+                            <td>
+                                    <?php
+                                    
+                                    $numberOfStudents = $courseController->getNumberOfStudents($course['CourseID']);
+                                    if ($numberOfStudents !== false) {
+                                        echo $numberOfStudents;
+                                    } else {
+                                        echo "Error retrieving number of students.";
+                                    } ?>
+                                </td>
                         </tr>
                     </tbody>
             <?php }
