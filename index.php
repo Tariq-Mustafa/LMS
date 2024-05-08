@@ -7,24 +7,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
         <link rel="stylesheet" href="./css/Registeration.css">
         <title>Registeration</title>
-        <style>
-            .form-group {
-			    margin-bottom: 20px;
-		    }
-            .form-control {
-                width: 100%;
-                padding: 10px;
-                font-size: 16px;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-		    }
-
-		    .role-label {
-                margin-bottom: 5px;
-                display: block;
-                font-weight: bold;
-		    }
-        </style>
     </head>
 
     <body>
@@ -39,13 +21,6 @@
                     <input type="email" name="email" placeholder="Email Address" />
                     <input type="password" name="password" placeholder="Password" minlength="7" />
                     <input type="password" name="cpassword" placeholder="Confirm Password" />
-                    <div class="form-group">
-                        <label for="Gender" class="role-label">Choose a Gender:</label>
-                            <select name="Gender" class="form-control">
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                    </div>
                     <input type="submit" name="submit" value="Register Now" class="button"/>
                 </form>
             </div>
