@@ -59,10 +59,10 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
     $student->setStudentID($_POST['StudentID']);
     $course2->setCourseId($_POST['CourseID']);
     if ($studentController->addStudentToCourse($student, $course2)) {
-        $studentController->closeConnection();
         $errMsg2 = "Added Successfully";
+        $studentController->closeConnection();
     } else {
-        $errMsg2 = "some thing went wrong try again";
+        $errMsg2 = "Student already added";
     }
 }
 
@@ -301,22 +301,22 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
                 <h2>Add Student to Course</h2>
             </div>
             <?php
-            if ($errMsg === "Added Successfully") { ?>
+            if ($errMsg2 === "Added Successfully") { ?>
                 <div class="alert_ok">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>OK!</strong> <?php echo $errMsg ?>
+                    <strong>OK!</strong> <?php echo $errMsg2 ?>
                 </div>
-            <?php } else if ($errMsg != "") { ?>
+            <?php } else if ($errMsg2 != "") { ?>
                 <div class="alert">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <strong>Try Again!</strong> <?php echo $errMsg ?>
+                    <strong>Try Again!</strong> <?php echo $errMsg2 ?>
                 </div>
             <?php
             }
             ?>
+            <br>
             <form action="manageCourse.php" method="post">
                 <div class="form-group">
-                    <?php echo $errMsg2 ?>
                     <label for="teacher">Student:</label>
                     <select class="form-control" name="StudentID" id="StudentID" onchange="toggleDepartmentField()">
                         <?php
