@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 02:52 PM
+-- Generation Time: May 08, 2024 at 03:23 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -89,7 +89,6 @@ CREATE TABLE `course` (
 
 INSERT INTO `course` (`CourseID`, `CourseName`, `Description`, `InstructorID`, `Start_Date`, `End_Date`, `Image`) VALUES
 (17, 'Artificial intelligence', 'Artificial intelligence (AI) makes it possible for machines to learn from experience, adjust to new inputs and perform human-like tasks. Most AI examples that you hear about today â€“ from chess-playing computers to self-driving cars â€“ rely heavily on deep learning and natural language processing.', 1, '2024-05-07 00:00:00', '2024-06-14 00:00:00', './images/01-04-30Types_of_Artificial_Intelligence.avif'),
-(18, 'Computer network', 'A computer network is a set of computers sharing resources located on or provided by network nodes. Computers use common communication protocols over digital interconnections to communicate with each other. These interconnections are made up of telecommunication network technologies based on physically wired, optical, and wireless radio-frequency methods that may be arranged in a variety of network topologies.', 3, '2024-05-14 00:00:00', '2024-06-19 00:00:00', './images/01-04-58network.jpg'),
 (20, 'Physics', 'physics, science that deals with the structure of matter and the interactions between the fundamental constituents of the observable universe. In the broadest sense, physics (from the Greek physikos) is concerned with all aspects of nature on both the macroscopic and submicroscopic levels.', 5, '2024-05-24 00:00:00', '2024-06-05 00:00:00', './images/12-34-18physics_icon.jpg');
 
 -- --------------------------------------------------------
@@ -135,7 +134,6 @@ CREATE TABLE `faculty_member` (
 
 INSERT INTO `faculty_member` (`FacultyID`, `UserID`, `AdminID`, `Department`) VALUES
 (1, 21, 11, 'CS'),
-(3, 24, 11, 'IT'),
 (5, 31, 11, 'IT'),
 (6, 32, 11, 'AI');
 
@@ -213,7 +211,6 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`StudentID`, `UserID`, `AdminID`) VALUES
-(20220206, 25, 11),
 (20220207, 26, 11),
 (20220208, 27, 11),
 (20220209, 28, 11),
@@ -235,10 +232,10 @@ CREATE TABLE `student_course` (
 --
 
 INSERT INTO `student_course` (`StudentID`, `CourseID`) VALUES
-(20220206, 17),
-(20220206, 20),
+(20220208, 17),
 (20220208, 20),
-(20220210, 18);
+(20220209, 20),
+(20220210, 17);
 
 -- --------------------------------------------------------
 
@@ -263,8 +260,6 @@ INSERT INTO `user` (`UserID`, `UserName`, `Email`, `Password`, `Role`, `Gender`)
 (19, 'test', 'test@gmail.com', '$2y$10$FHtKq.I1EvLJF38gywsXCutnoPada81XCts7uwGI5XlWVT5062uKS', 'Admin', 'Male'),
 (20, 'anas', 'anas@gmail.com', '$2y$10$.PVePFt9xTKugwVQHLyzpO2sAxMlc0bo8Tfmvs6JwcB.UTpU33PfW', 'Admin', 'Male'),
 (21, 'amr', 'amr@gmail.com', '$2y$10$upObS3yEFOtZjiS8MDu01OHr9ih/Deu2we78Pfb1bpELe0IJnVSx.', 'Teacher', 'Male'),
-(24, 'roida', 'roida@gmail.com', '$2y$10$bQLi0UsB5SA6Ml2NG8l4C.N8YrU2o/qcS5J1q0BhNb70i0JDmHZre', 'Teacher', 'Female'),
-(25, 'tom', 'tom@gmail.com', '$2y$10$Ivf3svS11vMIdygmkqip/eP5pZRXXp0K6Rbf6DuUycuyi4Dx6Qgku', 'Student', 'Male'),
 (26, 'emma', 'emma@gmil.com', '$2y$10$BhEhmkdUONix.FhMcpxRAu7P5/I1qfcYArbJxTJ09y8nKp7G7daNC', 'Student', 'Female'),
 (27, 'roy', 'roy@gmail.com', '$2y$10$6ry7NRC9Rs3RnkMwRM70z.i3/8BU1Y6m6AFrz2ayqFoqFTqaYTJre', 'Student', 'Male'),
 (28, 'Nora', 'Nora@gmail.com', '$2y$10$NedPIcNRr87k/Lq0ZW4U0O/HINsImcAPkZkgmlg.CSvR9ovO6bgRu', 'Student', 'Female'),
@@ -410,7 +405,7 @@ ALTER TABLE `certificate`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
@@ -493,7 +488,7 @@ ALTER TABLE `certificate`
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`InstructorID`) REFERENCES `faculty_member` (`FacultyID`);
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`InstructorID`) REFERENCES `faculty_member` (`FacultyID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `enrollment`
@@ -556,7 +551,7 @@ ALTER TABLE `student`
 -- Constraints for table `student_course`
 --
 ALTER TABLE `student_course`
-  ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`),
+  ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`) ON DELETE CASCADE,
   ADD CONSTRAINT `student_course_ibfk_2` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`) ON DELETE CASCADE;
 COMMIT;
 
