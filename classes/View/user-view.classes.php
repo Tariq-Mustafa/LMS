@@ -59,4 +59,10 @@ class UserView extends User {
             $this->deleteTeacher($id);
         }
     }
+
+    public function fetchsearch($search_query, $search_category) {
+        $search_results = $this->search($search_query, $search_category);
+
+        return $search_results;
+    }
 }
