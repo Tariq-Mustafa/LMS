@@ -22,7 +22,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="manageCourse.php">
+					<a href="viewCourse.php">
 						<span class="icon">
                            <ion-icon name="school-outline"></ion-icon>
 						</span>
