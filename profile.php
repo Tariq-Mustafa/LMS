@@ -46,9 +46,6 @@
                 <label>Role: <?php echo $role ?></label>
             </div>
             <div class="profile-info">
-                <a href="profileSettings.php" class="button">Edit Profile</a>
-            </div>
-            <div class="profile-info">
                 <a href="studentDashboard.php" class="button">Go back</a>
             </div>
         </div>
