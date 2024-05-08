@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 01:09 PM
+-- Generation Time: May 08, 2024 at 02:52 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -236,9 +236,9 @@ CREATE TABLE `student_course` (
 
 INSERT INTO `student_course` (`StudentID`, `CourseID`) VALUES
 (20220206, 17),
-(20220206, 18),
+(20220206, 20),
 (20220208, 20),
-(20220209, 17);
+(20220210, 18);
 
 -- --------------------------------------------------------
 
@@ -376,7 +376,7 @@ ALTER TABLE `student`
 --
 ALTER TABLE `student_course`
   ADD UNIQUE KEY `StudentID` (`StudentID`,`CourseID`),
-  ADD KEY `CourseID` (`CourseID`);
+  ADD KEY `student_course_ibfk_2` (`CourseID`);
 
 --
 -- Indexes for table `user`
@@ -410,7 +410,7 @@ ALTER TABLE `certificate`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
@@ -557,7 +557,7 @@ ALTER TABLE `student`
 --
 ALTER TABLE `student_course`
   ADD CONSTRAINT `student_course_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`),
-  ADD CONSTRAINT `student_course_ibfk_2` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`);
+  ADD CONSTRAINT `student_course_ibfk_2` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
