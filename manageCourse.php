@@ -27,6 +27,8 @@ if (isset($_POST['CourseName']) && isset($_POST['Start_Date']) && isset($_POST['
         if (move_uploaded_file($_FILES["Image"]["tmp_name"], $location)) {
             $course->setImage($location);
             if ($courseController->addCourse($course)) {
+                $outputDirectory = 'classes/View/';
+                $course->generatePhpPage($outputDirectory, $course);
                 $courseController->closeConnection();
                 $errMsg = "Added Successfully";
             } else {
@@ -193,7 +195,6 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
                 </div><?php
                     }
                         ?>
-
             <table>
                 <?php
                 if (count($courses) == 0) {
@@ -214,11 +215,16 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
                             foreach ($courses as $course) { ?>
                         <tbody>
                             <tr>
-                                <td><?php echo $course["CourseName"] ?></td>
+                                <td>
+                                <a href="classes/View/<?php echo $course["CourseName"] ?>.php" target="_blank" style="color: #0066cc; text-decoration: none; transition: color 0.3s ease;"
+                                 onmouseover="this.style.color='#ff6600'; this.style.textDecoration='underline;'" onmouseout="this.style.color='#0066cc'; this.style.textDecoration='none';">
+                                 <?php echo $course["CourseName"] ?></a>
+
+                                </td>
                                 <td><?php echo $course["UserName"] ?></td>
                                 <td>
                                     <?php
-                                    
+
                                     $numberOfStudents = $courseController->getNumberOfStudents($course['CourseID']);
                                     if ($numberOfStudents !== false) {
                                         echo $numberOfStudents;
