@@ -131,4 +131,36 @@ class User extends Db {
         }
 
     }
+
+    protected function search($search_query, $search_category) {
+        // Initialize variables for displaying search results
+        $search_results = array();
+        // Perform the search based on the selected category
+        if (!empty($search_query) && !empty($search_category)) {
+            try {
+                switch ($search_category) {
+                    case 'userName':
+                        $stmt = $this->connect()->prepare('SELECT * FROM user WHERE UserName LIKE ?;');
+                        break;
+                    case 'userID':
+                        $stmt = $this->connect()->prepare('SELECT * FROM user WHERE UserID LIKE ?;');
+                        break;
+                    default:
+                        // Handle unknown search categories
+                        break;
+                }
+        
+                $stmt->execute(["%$search_query%"]);
+                $search_results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
+                // Process the results as needed (e.g., display them, perform additional actions)
+            } catch (PDOException $e) {
+                // Handle database query errors (e.g., log the error, display a user-friendly message)
+                echo "An error occurred: " . $e->getMessage();
+            }
+        }
+        
+
+        return $search_results;
+    }
 }
