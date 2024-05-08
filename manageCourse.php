@@ -59,8 +59,8 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
     $course2 = new Course;
     $student->setStudentID($_POST['StudentID']);
     $course2->setCourseId($_POST['CourseID']);
-    if ($studeController->addStudentToCourse($student,$course)) {
-        $studeController->closeConnection();
+    if ($studentController->addStudentToCourse($student,$course2)) {
+        $studentController->closeConnection();
         $errMsg2 = "Added Successfully";
     } else {
         $errMsg2 = "some thing went wrong try again";
@@ -308,7 +308,7 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
             <div class="form-group">
                 <?php echo $errMsg2 ?>
                     <label for="teacher">Student:</label>
-                    <select class="form-control" name="InstructorID" id="InstructorID" onchange="toggleDepartmentField()">
+                    <select class="form-control" name="StudentID" id="StudentID" onchange="toggleDepartmentField()">
                         <?php
                         foreach ($students as $student) { ?>
                             <option value="<?php echo $student["StudentID"] ?>"><?php echo $student["UserName"] ?></option>
@@ -320,7 +320,7 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID']))
                 </div>
                 <div class="form-group">
                     <label for="teacher">Course:</label>
-                    <select class="form-control" name="InstructorID" id="InstructorID" onchange="toggleDepartmentField()">
+                    <select class="form-control" name="CourseID" id="CourseID" onchange="toggleDepartmentField()">
                         <?php
                         foreach ($courses as $course) { ?>
                             <option value="<?php echo $course["CourseID"] ?>"><?php echo $course["CourseName"] ?></option>
