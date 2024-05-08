@@ -16,7 +16,6 @@ class StudentController extends Db
     }
     public function addStudentToCourse(Student $student,Course $course){
         if ($this->openConnection()) {
-            $mysqli = $this->getConnection();
             $query = "INSERT IGNORE INTO student_course 
                       (StudentID, CourseID) 
                       VALUES 
