@@ -11,5 +11,15 @@ class FeedbackModel extends Db {
             return false;
         }
     }
+    public function getFeedbackForInstructor($instructorID) {
+        try {
+            $stmt = $this->connect()->prepare('SELECT * FROM feedback WHERE InstructorID = ?');
+            $stmt->execute([$instructorID]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            // Handle errors
+            return false;
+        }
+    }
 }
 ?>
