@@ -12,5 +12,8 @@ class FeedbackController extends FeedbackModel {
     public function submitFeedback($instructorID,$studentID, $content) {
         return $this->model->submitFeedback($instructorID,$studentID, $content);
     }
+    public function getFeedbackForInstructor($instructorID){
+        return $this->model->getFeedbackForInstructor($instructorID);
+    }
 }
 ?>
