@@ -30,19 +30,11 @@
 					</a>
 				</li>
 				<li>
-					<a href="messages.php">
+					<a href="message.php">
 						<span class="icon">
 							<ion-icon name="chatbubble-outline"></ion-icon>
 						</span>
 						<span class="title">Messages</span>
-					</a>
-				</li>
-				<li>
-					<a href="feedback.php">
-						<span class="icon">
-							<ion-icon name="chatbubble-outline"></ion-icon>
-						</span>
-						<span class="title">Student Feedback</span>
 					</a>
 				</li>
 				<li>

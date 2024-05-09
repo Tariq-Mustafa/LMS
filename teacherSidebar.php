@@ -38,7 +38,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="messages.php">
+					<a href="message.php">
 						<span class="icon">
 							<ion-icon name="chatbubble-outline"></ion-icon>
 						</span>
