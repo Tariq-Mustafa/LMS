@@ -10,10 +10,11 @@ require_once "classes/Model/Course.php";
 require_once 'classes/Control/StudentController.php';
 require_once "classes/Model/Student.php";
 $courseController = new CourseController;
-$courses = $courseController->getCourses();
-$Instructors = $courseController->getInstructors();
+$adminID=$_SESSION["AdminID"];
+$courses = $courseController->getCourses($adminID);
+$Instructors = $courseController->getInstructors($adminID);
 $studentController = new StudentController;
-$students = $studentController->getStudents();
+$students = $studentController->getStudents($adminID);
 $errMsg = "";
 if (isset($_POST['CourseName']) && isset($_POST['Start_Date']) && isset($_POST['End_Date']) && isset($_POST['Description']) && isset($_FILES["Image"])) {
     if (!empty($_POST['CourseName']) && !empty($_POST['Start_Date']) && !empty($_POST['End_Date']) && !empty($_POST['Description'])) {
@@ -26,8 +27,8 @@ if (isset($_POST['CourseName']) && isset($_POST['Start_Date']) && isset($_POST['
         $location = "./images/" . date("h-i-s") . basename($_FILES["Image"]["name"]);
         if (move_uploaded_file($_FILES["Image"]["tmp_name"], $location)) {
             $course->setImage($location);
-            if ($courseController->addCourse($course)) {
-                $outputDirectory = 'classes/View/';
+            if ($courseController->addCourse($course,$adminID)) {
+                $outputDirectory = './';
                 $course->generatePhpPage($outputDirectory, $course);
                 $courseController->closeConnection();
                 $errMsg = "Added Successfully";
@@ -216,7 +217,7 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
                         <tbody>
                             <tr>
                                 <td>
-                                <a href="classes/View/<?php echo $course["CourseName"] ?>.php" target="_blank" style="color: #0066cc; text-decoration: none; transition: color 0.3s ease;"
+                                <a href="<?php echo str_replace(' ', '-',$course["CourseName"]) ?>.php" target="_blank" style="color: #0066cc; text-decoration: none; transition: color 0.3s ease;"
                                  onmouseover="this.style.color='#ff6600'; this.style.textDecoration='underline;'" onmouseout="this.style.color='#0066cc'; this.style.textDecoration='none';">
                                  <?php echo $course["CourseName"] ?></a>
 
@@ -307,6 +308,7 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
                 <h2>Add Student to Course</h2>
             </div>
             <?php
+            /*
             if ($errMsg2 === "Added Successfully") { ?>
                 <div class="alert_ok">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -319,7 +321,7 @@ if (isset($_POST['StudentID']) && isset($_POST['CourseID'])) {
                 </div>
             <?php
             }
-            ?>
+            */?>
             <br>
             <form action="manageCourse.php" method="post">
                 <div class="form-group">

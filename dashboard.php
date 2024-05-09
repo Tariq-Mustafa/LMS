@@ -7,8 +7,11 @@ $users = new UserView();
 
 require_once 'classes/Control/CourseController.php';
 require_once "classes/Model/Course.php";
+require_once 'classes/Control/StudentController.php';
+require_once "classes/Model/Student.php";
 $courseController = new CourseController;
-$courses = $courseController->getCourses();
+$adminID=$_SESSION["AdminID"];
+$courses = $courseController->getCourses($adminID);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +82,10 @@ include_once "cards.php"
                             $course = $courses[$i]; ?>
                     <tbody>
                         <tr>
-                            <td><img src="<?php echo $course["Image"] ?>" alt="Course Image"></td>
+                        
+                            <td>
+                            <a href="<?php echo str_replace(' ', '-',$course["CourseName"]) ?>.php" target="_blank">    
+                            <img src="<?php echo $course["Image"] ?>" alt="Course Image"></td>
                             <td><?php echo $course["CourseName"] ?></td>
                             <td><?php echo $course["UserName"] ?></td>
                             <td>
