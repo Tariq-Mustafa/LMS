@@ -18,7 +18,7 @@ class CourseController extends Db
     {
 
         if ($this->openConnection()) {
-            $query = "SELECT c.CourseName, u.UserName, c.Image,c.CourseID FROM course c JOIN faculty_member f ON c.InstructorID = f.FacultyID JOIN user u ON f.UserID = u.UserID WHERE c.AdminID='$AdminID'";
+            $query = "SELECT c.CourseName, u.UserName, c.Image,c.CourseID,Description FROM course c JOIN faculty_member f ON c.InstructorID = f.FacultyID JOIN user u ON f.UserID = u.UserID WHERE c.AdminID='$AdminID'";
             return $this->select($query);
         } else {
             echo "Error in Database Connection";
