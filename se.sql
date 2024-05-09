@@ -109,15 +109,6 @@ CREATE TABLE `enrollment` (
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `evaluation_questions`
---
-
-CREATE TABLE `evaluation_questions` (
-  `EvalQID` int(11) NOT NULL,
-  `Content` text NOT NULL,
-  `AdminID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -154,7 +145,6 @@ CREATE TABLE `feedback` (
   `FeedbackID` int(11) NOT NULL,
   `InstructorID` int(11) NOT NULL,
   `StudentID` int(11) NOT NULL,
-  `EvalQID` int(11) NOT NULL,
   `Content` text NOT NULL,
   `Feedback_Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -326,12 +316,7 @@ ALTER TABLE `enrollment`
   ADD KEY `StudentID` (`StudentID`),
   ADD KEY `CourseID` (`CourseID`);
 
---
--- Indexes for table `evaluation_questions`
---
-ALTER TABLE `evaluation_questions`
-  ADD PRIMARY KEY (`EvalQID`),
-  ADD KEY `AdminID` (`AdminID`);
+
 
 --
 -- Indexes for table `faculty_member`
@@ -347,8 +332,7 @@ ALTER TABLE `faculty_member`
 ALTER TABLE `feedback`
   ADD PRIMARY KEY (`FeedbackID`),
   ADD KEY `InstructorID` (`InstructorID`),
-  ADD KEY `StudentID` (`StudentID`),
-  ADD KEY `EvalQID` (`EvalQID`);
+  ADD KEY `StudentID` (`StudentID`);
 
 --
 -- Indexes for table `grade`
@@ -430,11 +414,6 @@ ALTER TABLE `course`
 ALTER TABLE `enrollment`
   MODIFY `EnrollmentID` int(11) NOT NULL AUTO_INCREMENT;
 
---
--- AUTO_INCREMENT for table `evaluation_questions`
---
-ALTER TABLE `evaluation_questions`
-  MODIFY `EvalQID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `faculty_member`
@@ -515,11 +494,6 @@ ALTER TABLE `enrollment`
   ADD CONSTRAINT `enrollment_ibfk_1` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`),
   ADD CONSTRAINT `enrollment_ibfk_2` FOREIGN KEY (`CourseID`) REFERENCES `course` (`CourseID`);
 
---
--- Constraints for table `evaluation_questions`
---
-ALTER TABLE `evaluation_questions`
-  ADD CONSTRAINT `evaluation_questions_ibfk_1` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`);
 
 --
 -- Constraints for table `faculty_member`
@@ -533,8 +507,7 @@ ALTER TABLE `faculty_member`
 --
 ALTER TABLE `feedback`
   ADD CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`InstructorID`) REFERENCES `faculty_member` (`FacultyID`),
-  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`),
-  ADD CONSTRAINT `feedback_ibfk_3` FOREIGN KEY (`EvalQID`) REFERENCES `evaluation_questions` (`EvalQID`);
+  ADD CONSTRAINT `feedback_ibfk_2` FOREIGN KEY (`StudentID`) REFERENCES `student` (`StudentID`);
 
 --
 -- Constraints for table `grade`
