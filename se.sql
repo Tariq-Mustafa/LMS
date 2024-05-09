@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2024 at 03:23 PM
+-- Generation Time: May 09, 2024 at 01:15 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -38,7 +38,8 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`AdminID`, `UserID`) VALUES
 (10, 19),
-(11, 20);
+(11, 20),
+(12, 33);
 
 -- --------------------------------------------------------
 
@@ -80,16 +81,19 @@ CREATE TABLE `course` (
   `InstructorID` int(11) NOT NULL,
   `Start_Date` datetime NOT NULL,
   `End_Date` datetime NOT NULL,
-  `Image` varchar(500) NOT NULL
+  `Image` varchar(500) NOT NULL,
+  `AdminID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`CourseID`, `CourseName`, `Description`, `InstructorID`, `Start_Date`, `End_Date`, `Image`) VALUES
-(17, 'Artificial intelligence', 'Artificial intelligence (AI) makes it possible for machines to learn from experience, adjust to new inputs and perform human-like tasks. Most AI examples that you hear about today â€“ from chess-playing computers to self-driving cars â€“ rely heavily on deep learning and natural language processing.', 1, '2024-05-07 00:00:00', '2024-06-14 00:00:00', './images/01-04-30Types_of_Artificial_Intelligence.avif'),
-(20, 'Physics', 'physics, science that deals with the structure of matter and the interactions between the fundamental constituents of the observable universe. In the broadest sense, physics (from the Greek physikos) is concerned with all aspects of nature on both the macroscopic and submicroscopic levels.', 5, '2024-05-24 00:00:00', '2024-06-05 00:00:00', './images/12-34-18physics_icon.jpg');
+INSERT INTO `course` (`CourseID`, `CourseName`, `Description`, `InstructorID`, `Start_Date`, `End_Date`, `Image`, `AdminID`) VALUES
+(48, 'physics', 'i love Physics', 8, '2024-05-28 00:00:00', '2024-05-30 00:00:00', './images/12-16-14physics_icon.jpg', 12),
+(49, 'math', 'i love MATH', 7, '2024-05-07 00:00:00', '2024-06-19 00:00:00', './images/12-21-34mathj.jpg', 12),
+(50, 'computer network', 'i love Computer network', 9, '2024-05-15 00:00:00', '2024-05-30 00:00:00', './images/12-36-32network.jpg', 12),
+(51, 'statistics', 'i love statistics', 1, '2024-05-20 00:00:00', '2024-05-29 00:00:00', './images/12-45-27stat.jpg', 11);
 
 -- --------------------------------------------------------
 
@@ -135,7 +139,10 @@ CREATE TABLE `faculty_member` (
 INSERT INTO `faculty_member` (`FacultyID`, `UserID`, `AdminID`, `Department`) VALUES
 (1, 21, 11, 'CS'),
 (5, 31, 11, 'IT'),
-(6, 32, 11, 'AI');
+(6, 32, 11, 'AI'),
+(7, 34, 12, 'CS'),
+(8, 37, 12, 'IT'),
+(9, 38, 12, 'AI');
 
 -- --------------------------------------------------------
 
@@ -211,10 +218,13 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` (`StudentID`, `UserID`, `AdminID`) VALUES
-(20220207, 26, 11),
 (20220208, 27, 11),
 (20220209, 28, 11),
-(20220210, 29, 11);
+(20220210, 29, 11),
+(20220211, 35, 12),
+(20220212, 36, 12),
+(20220213, 39, 12),
+(20220214, 40, 12);
 
 -- --------------------------------------------------------
 
@@ -232,10 +242,9 @@ CREATE TABLE `student_course` (
 --
 
 INSERT INTO `student_course` (`StudentID`, `CourseID`) VALUES
-(20220208, 17),
-(20220208, 20),
-(20220209, 20),
-(20220210, 17);
+(20220211, 48),
+(20220211, 49),
+(20220214, 49);
 
 -- --------------------------------------------------------
 
@@ -260,12 +269,19 @@ INSERT INTO `user` (`UserID`, `UserName`, `Email`, `Password`, `Role`, `Gender`)
 (19, 'test', 'test@gmail.com', '$2y$10$FHtKq.I1EvLJF38gywsXCutnoPada81XCts7uwGI5XlWVT5062uKS', 'Admin', 'Male'),
 (20, 'anas', 'anas@gmail.com', '$2y$10$.PVePFt9xTKugwVQHLyzpO2sAxMlc0bo8Tfmvs6JwcB.UTpU33PfW', 'Admin', 'Male'),
 (21, 'amr', 'amr@gmail.com', '$2y$10$upObS3yEFOtZjiS8MDu01OHr9ih/Deu2we78Pfb1bpELe0IJnVSx.', 'Teacher', 'Male'),
-(26, 'emma', 'emma@gmil.com', '$2y$10$BhEhmkdUONix.FhMcpxRAu7P5/I1qfcYArbJxTJ09y8nKp7G7daNC', 'Student', 'Female'),
 (27, 'roy', 'roy@gmail.com', '$2y$10$6ry7NRC9Rs3RnkMwRM70z.i3/8BU1Y6m6AFrz2ayqFoqFTqaYTJre', 'Student', 'Male'),
 (28, 'Nora', 'Nora@gmail.com', '$2y$10$NedPIcNRr87k/Lq0ZW4U0O/HINsImcAPkZkgmlg.CSvR9ovO6bgRu', 'Student', 'Female'),
 (29, 'max', 'max@gmail.com', '$2y$10$pM601DwJ2DYcHLq2KjDAMu/00AlinHjONNAYTGrSgf8s2odOeJOYu', 'Student', 'Male'),
 (31, 'mohamed', 'mohamed@gmail.com', '$2y$10$h7juGI.CtxqhSOIQiYRJAuMkINEegiI2cLxiT74oBeWEJOXZoxkvy', 'Teacher', 'Male'),
-(32, 'ahmed', 'ahmed@gmail.com', '$2y$10$CxTNDif4b418s8MRii5wneRq9z3hjfbTis5TzqYi4TN.5kN71Whi.', 'Teacher', 'Male');
+(32, 'ahmed', 'ahmed@gmail.com', '$2y$10$CxTNDif4b418s8MRii5wneRq9z3hjfbTis5TzqYi4TN.5kN71Whi.', 'Teacher', 'Male'),
+(33, 'admin', 'admin@gmail.com', '$2y$10$.JrvcXHzwgia7yFNKCK.aeue8pCXvsD7.2az83Xvqgi11nobDgecm', 'Admin', 'NULL'),
+(34, 'samir', 'samir@gmail.com', '$2y$10$jl/IOc2UQWIzdthx0pnZx.lNOZPfu8Bk3L/Zb1Ld4VaPA0kV1vPJO', 'Teacher', 'Male'),
+(35, 'nami', 'nami@gmail.com', '$2y$10$K9MxrmmBXZDt641ropuGjOKkoriSclEevGByJXBmzFXTRx4yr3qVi', 'Student', 'Female'),
+(36, 'teemo', 'teemo@gmail.com', '$2y$10$WrZpI4S6xfs7aJ4DUeDSS.jNBOZ1uXPb3fmdzR3EP3I9w2ROOk/b.', 'Student', 'Male'),
+(37, 'mundo', 'mundo@gmail.com', '$2y$10$LcqFkSDln2PFPi6C3mr67.y75YTznWcBOaYWbYgLtL5Y226LPcM72', 'Teacher', 'Male'),
+(38, 'samira', 'samira@gmail.com', '$2y$10$Vk7GWZDyvbNxUkkf.95uUevTqKIPq/NWilcBuVVdt.BYgX/0gLD2C', 'Teacher', 'Female'),
+(39, 'draven', 'draven@gmail.com', '$2y$10$CRwxg5/W7dNqWKvXKRkHjuwhVt7lJ3Nv/2pyI9Q9wsMgyxi927yC2', 'Student', 'Male'),
+(40, 'lulu', 'lulu@gmail.com', '$2y$10$ZQi90LpzC7R4NbAjO/TxSOYjwHtaM0bhfsn.D0RUjZ9YnxuuwjNd2', 'Student', 'Female');
 
 --
 -- Indexes for dumped tables
@@ -299,7 +315,8 @@ ALTER TABLE `certificate`
 ALTER TABLE `course`
   ADD PRIMARY KEY (`CourseID`),
   ADD UNIQUE KEY `CourseName` (`CourseName`),
-  ADD KEY `InstructorID` (`InstructorID`);
+  ADD KEY `InstructorID` (`InstructorID`),
+  ADD KEY `AdminID` (`AdminID`);
 
 --
 -- Indexes for table `enrollment`
@@ -387,7 +404,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `assignment`
@@ -405,7 +422,7 @@ ALTER TABLE `certificate`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `CourseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `enrollment`
@@ -423,7 +440,7 @@ ALTER TABLE `evaluation_questions`
 -- AUTO_INCREMENT for table `faculty_member`
 --
 ALTER TABLE `faculty_member`
-  MODIFY `FacultyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `FacultyID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -453,13 +470,13 @@ ALTER TABLE `rating`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20220211;
+  MODIFY `StudentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20220215;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- Constraints for dumped tables
@@ -488,7 +505,8 @@ ALTER TABLE `certificate`
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`InstructorID`) REFERENCES `faculty_member` (`FacultyID`) ON DELETE CASCADE;
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`InstructorID`) REFERENCES `faculty_member` (`FacultyID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `course_ibfk_2` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`);
 
 --
 -- Constraints for table `enrollment`
