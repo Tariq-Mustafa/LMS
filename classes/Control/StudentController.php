@@ -4,10 +4,10 @@ require_once __DIR__ . '/../Model/Student.php';
 require_once __DIR__ . '/../Model/Course.php';
 class StudentController extends Db
 {
-    public function getStudents()
+    public function getStudents($AdminID)
     {
         if ($this->openConnection()) {
-            $query = "SELECT StudentID, UserName FROM student JOIN user ON student.UserID = user.UserID";
+            $query = "SELECT StudentID, UserName FROM student JOIN user ON student.UserID = user.UserID Where student.AdminID='$AdminID'";
             return $this->select($query);
         } else {
             echo "Error in Database Connection";
