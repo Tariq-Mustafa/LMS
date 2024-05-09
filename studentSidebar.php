@@ -46,7 +46,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="feedback.php">
+					<a href="submit_feedback.php">
 						<span class="icon">
                           <ion-icon name="send-outline"></ion-icon>
 						</span>
